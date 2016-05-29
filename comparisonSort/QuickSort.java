@@ -62,6 +62,7 @@ public class QuickSort extends ComparisonSort {
 		return pivot;
 	}
 	
+	
 	public static void main(String[] args) {
 		(new QuickSort()).test(10000, 5000, 87, 8340, false);
 	}

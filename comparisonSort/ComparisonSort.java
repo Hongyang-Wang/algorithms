@@ -34,7 +34,7 @@ public abstract class ComparisonSort {
 		for (int i = 0; i < numOfElements; i++) {
 			if (arr1[i].compareTo(arr2[i]) != 0) {
 				System.out.println("Incorrect: " + "i = " + i + ", arr1[i] = " + arr1[i] +
-						"arr2[i] = " + arr2[i]);
+						", arr2[i] = " + arr2[i]);
 				return;
 			}
 		}

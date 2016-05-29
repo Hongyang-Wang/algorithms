@@ -13,7 +13,7 @@ public class MergeSortTopDown extends ComparisonSort {
 		sort(arr, start, mid);  // top-down
 		sort(arr, mid, end);
 		
-		T[] aux = (T[]) new Object[len];
+		T[] aux = (T[]) new Comparable[len];
 		int i = start, j = mid, k = 0;
 		while (k < len) {
 			if (i >= mid)
@@ -32,4 +32,9 @@ public class MergeSortTopDown extends ComparisonSort {
 		}
 	}
 
+	
+	public static void main(String[] args) {
+		(new MergeSortTopDown()).test(10000, 5000, 87, 8340, false);
+	}
+	
 }
