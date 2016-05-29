@@ -1,28 +1,31 @@
 package algorithms.nonComparisonSort;
 
-public class CountSort {
-	
-	public static void sort(int[] arr, int lo, int hi) {
-		if (hi <= lo + 1)
+public class RadixSort {
+
+	/* Only for non-negative integers */
+	public static void sort(int[] arr, int R) {
+		if (arr.length <= 1)
 			return;
-		int N = hi - lo;
-		int[] count = new int[N + 1];  // +1 for convenience
-		for (int i = 0; i < arr.length; i++) {
-			count[arr[i] - lo + 1]++;
-		}
-		for (int i = 1; i < count.length; i++) {
-			count[i] += count[i - 1];
+		int maxVal = arr[0];
+		for (int i = 1; i < arr.length; i++) {
+			if (arr[i] > maxVal)
+				maxVal = arr[i];
 		}
 		int[] aux = new int[arr.length];
-		for (int i = 0; i < arr.length; i++) {
-			aux[count[arr[i] - lo]++] = arr[i];
-		}
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = aux[i];
+		for (int i = 0, r = 1; i <= (int) (Math.log(maxVal) / Math.log(R)); i++, r *= R) {
+			int[] count = new int[R + 1];
+			for (int e : arr)
+				count[(e / r) % R + 1]++;
+			for (int j = 1; j < count.length; j++)
+				count[j] += count[j - 1];
+			for (int e : arr)
+				aux[count[(e / r) % R]++] = e;
+			for (int j = 0; j < arr.length; j++)
+				arr[j] = aux[j];
 		}
 	}
-
-	static void test(int numOfElements, int rangeOfElements, boolean print) {
+	
+	static void test(int numOfElements, int rangeOfElements, int R, boolean print) {
 		int[] arr1 = new int[numOfElements], arr2 = new int[numOfElements];
 		for (int i = 0; i < numOfElements; i++) {
 			int e = (int)(Math.random() * rangeOfElements);
@@ -34,7 +37,7 @@ public class CountSort {
 		}
 		
 		java.util.Arrays.sort(arr1);
-		sort(arr2, 0, rangeOfElements);
+		sort(arr2, R);
 		if (print) {
 			printArray(arr1);
 			printArray(arr2);
@@ -57,7 +60,7 @@ public class CountSort {
 	}
 	
 	public static void main(String[] args) {
-		CountSort.test(10000, 50, false);
-	}
+		RadixSort.test(10000, 1000, 10, false);
+	}	
 	
 }
