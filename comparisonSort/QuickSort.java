@@ -1,12 +1,6 @@
-package algorithms.sort;
+package algorithms.comparisonSort;
 
-public class QuickSort extends Sort {
-
-	@Override
-	public void sort(int[] arr, int start, int end) {
-		// TODO Auto-generated method stub
-
-	}
+public class QuickSort extends ComparisonSort {
 
 	@Override
 	public <T extends Comparable<T>> void sort(T[] arr, int start, int end) {
@@ -28,10 +22,14 @@ public class QuickSort extends Sort {
 			}
 		}
 		sort(arr, start, lt);
-		sort(arr, gt + 1, end);
+		sort(arr, gt + 1, end);		
 	}
-
-	// O(n) time complexity; find the kth smallest element in an array
+	
+	private static int randInt(int l, int h) {
+		return l + (int)(Math.random() * (h - l));
+	}
+	
+	/* O(n) time complexity; find the kth smallest element in an array */
 	public static <T extends Comparable<T>> T findKthElement(T[] arr, int start, int end, int k) {
 		if (end <= start || k <= 0) {
 			return null;
@@ -62,10 +60,10 @@ public class QuickSort extends Sort {
 			return findKthElement(arr, gt + 1, end, k - (gt - start + 1));
 		}
 		return pivot;
-	}	
-	
-	private static int randInt(int l, int h) {
-		return l + (int)(Math.random() * (h - l));
 	}
 	
+	public static void main(String[] args) {
+		(new QuickSort()).test(10000, 5000, 87, 8340, false);
+	}
+
 }
